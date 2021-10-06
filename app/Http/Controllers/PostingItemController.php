@@ -18,7 +18,7 @@ class PostingItemController extends Controller
     public function index(Request $r)
     {
         $available_years = PostingItem::selectRaw('YEAR(datetime) as year')->groupBy('year')->orderBy('year', 'DESC')->get()->pluck('year');
-        $selected_year = $r->query('year') ?? $available_years[0];
+        $selected_year = $r->query('year') ?? $available_years[0] ?? 2021;
         $search = $r->query('search');
 
         $posting_items = PostingItem::when($selected_year !== 'all', function ($query) use ($selected_year)
