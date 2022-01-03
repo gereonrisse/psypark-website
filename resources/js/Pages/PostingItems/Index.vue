@@ -15,7 +15,7 @@
             <!-- download and new button -->
             <div class="flex">
                 <div class="w-0 sm:w-full"></div>
-                <jet-secondary-button type="button" class="flex-1 sm:flex-none" @click="underConstruction">PDF herunterladen</jet-secondary-button>
+                <jet-secondary-button type="button" class="flex-1 sm:flex-none break-all" @click="underConstruction">PDF herunterladen</jet-secondary-button>
                 <jet-button type="button" class="flex-1 sm:flex-none ml-2" @click="$inertia.visit(route('posting-items.create'))">Neuer Eintrag</jet-button>
             </div>
 
@@ -23,7 +23,7 @@
             <div class="flex mt-2">
                 <search-input class="flex-grow" v-model="search" @change="reload"></search-input>
                 <select
-                    class="ml-2 inline-flex items-center pl-4 pr-7 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm
+                    class="ml-2 hidden sm:inline-flex items-center pl-4 pr-7 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm
                     hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition"
                     v-model="selected_year" @change="reload">
                     <option value="all">alle Jahre</option>
@@ -44,7 +44,7 @@
                     </colgroup>
                     <thead>
                     <tr class="text-xs sm:text-sm font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                        <th class="px-2 py-2 sm:px-4 sm:py-3">Beschreibung / Datum</th>
+                        <th class="px-2 py-2 sm:px-4 sm:py-3 break-all">Beschreibung / Datum</th>
                         <th class="px-2 py-2 sm:px-4 sm:py-3">Person</th>
                         <th class="px-2 py-2 sm:px-4 sm:py-3">Betrag</th>
                         <th class="px-2 py-2 sm:px-4 sm:py-3"></th>
@@ -54,7 +54,7 @@
                     <tr v-for="item in posting_items" class="text-gray-700 hover:bg-gray-100">
                         <td class="px-2 py-2 sm:px-4 sm:py-3 border">
                             <div class="text-sm">
-                                <p class="font-semibold text-black">{{ item.description }}</p>
+                                <p class="font-semibold text-black break-all">{{ item.description }}</p>
                                 <p class="text-xs text-gray-600">{{ formatDateTime(item.datetime) }}</p>
                             </div>
                         </td>
