@@ -26,7 +26,7 @@
             <div class="mt-4">
                 <jet-label for="amount" value="Betrag"/>
 
-                <currency-input :class="[form.amount < 0 ? 'text-red-600' : 'text-black' , 'mt-1 block w-full']" v-model="form.amount"
+                <currency-input :class="[form.amount < 0 ? 'text-red-600' : 'text-black' , 'mt-1 block w-full flex-grow']" v-model="form.amount"
                                 :options="{ currency: 'EUR', autoDecimalDigits: true, precision: 2 }">
                 </currency-input>
 
@@ -102,7 +102,7 @@ export default {
         const form = useForm({
             description: null,
             person: usePage().props.value.user.name,
-            amount: 0.00,
+            amount: -20.00,
             date: now.toISOString().split('T')[0],
             time: ("0" + now.getHours()).slice(-2)   + ":" + ("0" + now.getMinutes()).slice(-2),
             notes: null,
