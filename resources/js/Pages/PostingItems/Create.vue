@@ -22,7 +22,7 @@
                 <jet-input-error :message="form.errors.person" class="mt-2"/>
             </div>
 
-            <!-- Amount -->
+            <!-- amount -->
             <div class="mt-4">
                 <jet-label for="amount" value="Betrag"/>
 
@@ -31,6 +31,12 @@
                 </currency-input>
 
                 <jet-input-error :message="form.errors.amount" class="mt-2"/>
+            </div>
+
+            <!-- type -->
+            <div class="mt-4">
+                <radio id="cash" v-model="form.type">Kasse</radio>
+                <radio id="bank" v-model="form.type">Bank</radio>
             </div>
 
             <!-- Datetime -->
@@ -81,10 +87,12 @@ import {useForm} from '@inertiajs/inertia-vue3'
 import {usePage} from '@inertiajs/inertia-vue3'
 import ThinContainer from "@/Elements/ThinContainer";
 import CurrencyInput from "@/Elements/CurrencyInput";
+import Radio from "@/Elements/Radio";
 
 export default {
     name: "Create",
     components: {
+        Radio,
         CurrencyInput,
         ThinContainer,
         PageHeader,
@@ -102,7 +110,8 @@ export default {
         const form = useForm({
             description: null,
             person: usePage().props.value.user.name,
-            amount: -20.00,
+            amount: 0.00,
+            type: 'cash',
             date: now.toISOString().split('T')[0],
             time: ("0" + now.getHours()).slice(-2)   + ":" + ("0" + now.getMinutes()).slice(-2),
             notes: null,

@@ -22,7 +22,7 @@
                 <jet-input-error :message="form.errors.person" class="mt-2"/>
             </div>
 
-            <!-- Amount -->
+            <!-- amount -->
             <div class="mt-4">
                 <jet-label for="amount" value="Betrag"/>
 
@@ -31,6 +31,12 @@
                 </currency-input>
 
                 <jet-input-error :message="form.errors.amount" class="mt-2"/>
+            </div>
+
+            <!-- type -->
+            <div class="mt-4">
+                <radio id="cash" v-model="form.type">Kasse</radio>
+                <radio id="bank" v-model="form.type">Bank</radio>
             </div>
 
             <!-- Datetime -->
@@ -81,6 +87,7 @@ import JetInputError from '@/Jetstream/InputError.vue';
 import {useForm} from '@inertiajs/inertia-vue3'
 import ThinContainer from "@/Elements/ThinContainer";
 import CurrencyInput from "@/Elements/CurrencyInput";
+import Radio from "@/Elements/Radio";
 import moment from "moment";
 
 export default {
@@ -94,13 +101,15 @@ export default {
         JetInput,
         JetTextarea,
         JetLabel,
-        JetInputError
+        JetInputError,
+        Radio
     },
     layout: AppLayout,
     props: ['posting_item'],
     setup(props) {
         const form = useForm({
-            amount: props.posting_item.amount,
+            amount: props.posting_item.cash_amount ?? props.posting_item.bank_amount,
+            type: props.posting_item.cash_amount ? 'cash' : 'bank',
             description: props.posting_item.description,
             created_at: props.posting_item.created_at,
             deleted_at: props.posting_item.deleted_at,

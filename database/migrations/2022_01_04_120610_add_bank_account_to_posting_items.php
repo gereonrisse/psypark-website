@@ -1,0 +1,46 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddBankAccountToPostingItems extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('posting_items', function (Blueprint $table)
+        {
+            $table->decimal('amount', 12, 2)->nullable()->change();
+        });
+
+        Schema::table('posting_items', function (Blueprint $table)
+        {
+            $table->decimal('bank_amount', 12, 2)->nullable()->after('amount');
+            $table->renameColumn('amount', 'cash_amount');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('posting_items', function (Blueprint $table)
+        {
+            $table->dropColumn('bank_amount');
+            $table->renameColumn('cash_amount', 'amount');
+        });
+
+        Schema::table('posting_items', function (Blueprint $table)
+        {
+            $table->decimal('amount', 12, 2)->nullable(false)->change();
+        });
+    }
+}

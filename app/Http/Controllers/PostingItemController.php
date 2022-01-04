@@ -36,13 +36,16 @@ class PostingItemController extends Controller
                 });
             })
             ->orderBy('datetime', 'desc')
+            ->latest()
             ->get();
 
-        $balance = PostingItem::sum('amount');
+        $cash_balance = PostingItem::sum('cash_amount');
+        $bank_balance = PostingItem::sum('bank_amount');
 
         return Inertia::render('PostingItems/Index', [
             'posting_items'   => $posting_items,
-            'balance'         => $balance,
+            'cash_balance'    => $cash_balance,
+            'bank_balance'    => $bank_balance,
             'available_years' => $available_years
         ]);
     }
@@ -71,6 +74,7 @@ class PostingItemController extends Controller
             'description' => ['required', 'max:255'],
             'person'      => ['required', 'max:255'],
             'amount'      => ['required', 'numeric', 'not_in:0'],
+            'type'        => ['required', 'in:cash,bank'],
             'date'        => ['required', 'date'],
             'time'        => ['required', 'regex:/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/'],
             'notes'       => ['nullable', 'max:65536'],
@@ -82,7 +86,8 @@ class PostingItemController extends Controller
             'description' => $r->get('description'),
             'person'      => $r->get('person'),
             'notes'       => $r->get('notes'),
-            'amount'      => $r->get('amount'),
+            'cash_amount' => $r->get('type') === 'cash' ? $r->get('amount') : null,
+            'bank_amount' => $r->get('type') === 'bank' ? $r->get('amount') : null,
             'datetime'    => $r->get('date') . ' ' . $r->get('time') . ':00',
             'file_hash'   => null
         ]);
@@ -117,6 +122,8 @@ class PostingItemController extends Controller
      */
     public function edit(PostingItem $postingItem)
     {
+        // TODO return EditTransfer
+
         return Inertia::render('PostingItems/Edit', [
             'posting_item' => $postingItem,
         ]);
@@ -134,6 +141,7 @@ class PostingItemController extends Controller
             'description' => ['required', 'max:255'],
             'person'      => ['required', 'max:255'],
             'amount'      => ['required', 'numeric', 'not_in:0'],
+            'type'        => ['required', 'in:cash,bank'],
             'date'        => ['required', 'date'],
             'time'        => ['required', 'regex:/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/'],
             'notes'       => ['nullable', 'max:65536'],
@@ -144,7 +152,8 @@ class PostingItemController extends Controller
             ->update([
                 'description' => $request->get('description'),
                 'person'      => $request->get('person'),
-                'amount'      => $request->get('amount'),
+                'cash_amount' => $request->get('type') === 'cash' ? $request->get('amount') : null,
+                'bank_amount' => $request->get('type') === 'bank' ? $request->get('amount') : null,
                 'date'        => $request->get('date'),
                 'time'        => $request->get('time'),
                 'notes'       => $request->get('notes'),
