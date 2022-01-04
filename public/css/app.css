@@ -1695,6 +1695,9 @@ select {
 .pt-8 {
 	padding-top: 2rem;
 }
+.pr-2 {
+	padding-right: 0.5rem;
+}
 .pl-4 {
 	padding-left: 1rem;
 }
@@ -2342,6 +2345,11 @@ select {
 	.sm\:px-20 {
 		padding-left: 5rem;
 		padding-right: 5rem;
+	}
+
+	.sm\:py-4 {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
 	}
 
 	.sm\:px-4 {

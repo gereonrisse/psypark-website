@@ -1,6 +1,6 @@
 <template>
   <header class="bg-white shadow">
-    <div class="sm:flex max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex max-w-7xl mx-auto py-2 sm:py-4 px-4 sm:px-6 lg:px-8">
         <h2 class="sm:flex-grow font-semibold text-xl text-gray-800 leading-tight">
             <slot name="header"></slot>
         </h2>

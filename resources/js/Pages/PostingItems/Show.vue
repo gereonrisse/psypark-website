@@ -24,8 +24,8 @@
                     <td class="font-semibold">
                         Betrag
                     </td>
-                    <td :class="[posting_item.amount < 0 ? 'text-red-600' : 'text-black', 'text-right']">
-                        {{ posting_item.amount }} €
+                    <td :class="[posting_item.cash_amount < 0 ? 'text-red-600' : 'text-black', 'text-right']">
+                        {{ posting_item.cash_amount }} €
                     </td>
                 </tr>
                 <tr>
